@@ -273,7 +273,7 @@ class GirderClient(object):
             resp = self.post('api_key/token', parameters={
                 'key': apiKey
             })
-            self.token = resp['authToken']['token']
+            self.authenticateWithToken(resp['authToken']['token'])
         else:
             if interactive:
                 if username is None:
@@ -293,7 +293,16 @@ class GirderClient(object):
             if 'authToken' not in resp:
                 raise AuthenticationError()
 
-            self.token = resp['authToken']['token']
+            self.authenticateWithToken(resp['authToken']['token'])
+
+    def authenticateWithToken(self, token):
+        """
+        Authenticate to Girder using an existing token. This is useful in the case
+        where the client has already been given a valid token, such as a remote job.
+
+        :param token: A string containing the existing Girder token
+        """
+        self.token = token
 
     def getServerVersion(self, useCached=True):
         """
