@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import 'jquery-migrate';
 
 /**
  * Helper selector to enable/disable inputs elements

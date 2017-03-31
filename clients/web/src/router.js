@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import 'jquery-migrate';
 import Backbone from 'backbone';
 
 import events from 'girder/events';

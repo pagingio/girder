@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import 'jquery-migrate';
 
 import GroupModel from 'girder/models/GroupModel';
 import View from 'girder/views/View';

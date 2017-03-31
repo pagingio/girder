@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import 'jquery-migrate';
 
 import router from 'girder/router';
 import View from 'girder/views/View';

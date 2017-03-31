@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import 'jquery-migrate';
 
 import CollectionCollection from 'girder/collections/CollectionCollection';
 import CollectionModel from 'girder/models/CollectionModel';

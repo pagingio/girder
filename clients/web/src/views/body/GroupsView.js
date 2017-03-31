@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import 'jquery-migrate';
 
 import EditGroupWidget from 'girder/views/widgets/EditGroupWidget';
 import GroupCollection from 'girder/collections/GroupCollection';

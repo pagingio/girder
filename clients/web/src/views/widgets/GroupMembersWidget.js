@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import 'jquery-migrate';
 import _ from 'underscore';
 
 import PaginateWidget from 'girder/views/widgets/PaginateWidget';

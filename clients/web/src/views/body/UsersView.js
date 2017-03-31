@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import 'jquery-migrate';
 
 import PaginateWidget from 'girder/views/widgets/PaginateWidget';
 import RegisterView from 'girder/views/layout/RegisterView';
