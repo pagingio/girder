@@ -50,7 +50,7 @@ var SystemConfigurationView = View.extend({
                     list: JSON.stringify(settings)
                 },
                 error: null
-            }).done(_.bind(function () {
+            }).then(() => {
                 this.$('.g-submit-settings').removeClass('disabled');
                 events.trigger('g:alert', {
                     icon: 'ok',
@@ -58,10 +58,10 @@ var SystemConfigurationView = View.extend({
                     type: 'success',
                     timeout: 4000
                 });
-            }, this)).error(_.bind(function (resp) {
+            }, (resp) => {
                 this.$('.g-submit-settings').removeClass('disabled');
                 this.$('#g-settings-error-message').text(resp.responseJSON.message);
-            }, this));
+            });
         },
         'click #g-restart-server': restartServerPrompt
     },
@@ -98,7 +98,7 @@ var SystemConfigurationView = View.extend({
                 list: JSON.stringify(keys),
                 default: 'none'
             }
-        }).done(_.bind(function (resp) {
+        }).then((resp) => {
             this.settings = resp;
             restRequest({
                 path: 'system/setting',
@@ -107,11 +107,11 @@ var SystemConfigurationView = View.extend({
                     list: JSON.stringify(keys),
                     default: 'default'
                 }
-            }).done(_.bind(function (resp) {
+            }).then((resp) => {
                 this.defaults = resp;
                 this.render();
-            }, this));
-        }, this));
+            });
+        });
     },
 
     render: function () {

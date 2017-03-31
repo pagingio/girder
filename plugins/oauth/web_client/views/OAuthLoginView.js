@@ -27,10 +27,10 @@ var OAuthLoginView = View.extend({
                 redirect: redirect,
                 list: true
             }
-        }).done(_.bind(function (resp) {
+        }).then((resp) => {
             this.providers = resp;
             this.render();
-        }, this));
+        });
     },
 
     render: function () {

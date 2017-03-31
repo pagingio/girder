@@ -743,11 +743,11 @@ girderTest.binaryUpload = function (path) {
                 path: path,
                 folderId: folderId
             }
-        }).done(function (resp) {
+        }).then(function (resp) {
             file = resp;
-        }).error(function (resp) {
+        }, function (err) {
             console.log('Could not complete simulated upload of ' + path + ' to ' + folderId);
-            console.log(resp.responseJSON.message);
+            console.log(err.responseJSON.message);
         });
     });
 

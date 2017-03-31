@@ -20,7 +20,7 @@ $(document).ready(function () {
         girder.restRequest({
             path: 'user/authentication',
             type: 'DELETE'
-        }).done(function () {
+        }).then(function () {
             girder.currentUser = null;
             girder.events.trigger('g:login');
         });
@@ -50,7 +50,7 @@ $(document).ready(function () {
     girder.restRequest({
         path: 'user/authentication',
         error: null
-    }).done(function (resp) {
+    }).then(function (resp) {
         girder.currentUser = new girder.models.UserModel(resp.user);
         girder.events.trigger('g:login');
     });

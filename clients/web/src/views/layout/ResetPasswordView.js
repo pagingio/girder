@@ -1,5 +1,3 @@
-import _ from 'underscore';
-
 import View from 'girder/views/View';
 import events from 'girder/events';
 import { handleClose, handleOpen } from 'girder/dialog';
@@ -24,17 +22,17 @@ var ResetPasswordView = View.extend({
                 },
                 type: 'PUT',
                 error: null // don't do default error behavior
-            }).done(_.bind(function () {
+            }).then(() => {
                 this.$el.modal('hide');
                 events.trigger('g:alert', {
                     icon: 'mail-alt',
                     text: 'Password reset email sent.',
                     type: 'success'
                 });
-            }, this)).error(_.bind(function (err) {
+            }, (err) => {
                 this.$('.g-validation-failed-message').text(err.responseJSON.message);
                 this.$('#g-reset-password-button').girderEnable(true);
-            }, this));
+            });
 
             this.$('#g-reset-password-button').girderEnable(false);
             this.$('.g-validation-failed-message').text('');

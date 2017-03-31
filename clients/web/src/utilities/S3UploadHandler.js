@@ -71,9 +71,9 @@ prototype.execute = function () {
                         uploadId: handler.params.upload._id
                     },
                     error: null
-                }).done(_.bind(function (resp) {
+                }).then((resp) => {
                     this.trigger('g:upload.complete', resp);
-                }, handler)).error(_.bind(function (resp) {
+                }, (resp) => {
                     var msg;
 
                     if (resp.status === 0) {
@@ -84,7 +84,7 @@ prototype.execute = function () {
                     this.trigger('g:upload.error', {
                         message: msg
                     });
-                }, handler));
+                });
             } else {
                 handler.trigger('g:upload.error', {
                     message: 'Error occurred uploading to S3 (' +
@@ -122,10 +122,10 @@ prototype.resume = function () {
             uploadId: this.params.upload._id
         },
         error: null
-    }).done(_.bind(function (resp) {
+    }).then((resp) => {
         this.params.upload.s3.request = resp;
         this.execute();
-    }, this)).error(_.bind(function (resp) {
+    }, (resp) => {
         var msg;
 
         if (resp.status === 0) {
@@ -136,7 +136,7 @@ prototype.resume = function () {
         this.trigger('g:upload.error', {
             message: msg
         });
-    }, this));
+    });
 };
 
 /**
@@ -197,7 +197,7 @@ prototype._sendNextChunk = function () {
             uploadId: this.params.upload._id
         },
         error: null
-    }).done(_.bind(function (resp) {
+    }).then((resp) => {
         // Send the chunk to S3
         var handler = this;
         var xhr = new XMLHttpRequest();
@@ -239,11 +239,11 @@ prototype._sendNextChunk = function () {
         });
 
         xhr.send(data);
-    }, this)).error(_.bind(function () {
+    }, () => {
         this.trigger('g:upload.error', {
             message: 'Error getting signed chunk request from Girder.'
         });
-    }, this));
+    });
 };
 
 /**
@@ -258,7 +258,7 @@ prototype._finalizeMultiChunkUpload = function () {
             uploadId: this.params.upload._id
         },
         error: null
-    }).done(_.bind(function (resp) {
+    }).then((resp) => {
         // Create the XML document that will be the request body to S3
         var handler = this;
         var doc = document.implementation.createDocument(null, null, null);
@@ -298,7 +298,7 @@ prototype._finalizeMultiChunkUpload = function () {
         };
 
         xhr.send(new window.XMLSerializer().serializeToString(root));
-    }, this)).error(_.bind(function (resp) {
+    }, (resp) => {
         var msg;
 
         if (resp.status === 0) {
@@ -309,5 +309,5 @@ prototype._finalizeMultiChunkUpload = function () {
         this.trigger('g:upload.error', {
             message: msg
         });
-    }, this));
+    });
 };

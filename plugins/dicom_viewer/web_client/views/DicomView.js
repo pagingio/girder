@@ -135,9 +135,9 @@ var DicomView = View.extend({
                 // don't need the dicom tags, just want the sorted results
                 filters: 'dummy'
             }
-        }).done(_.bind(function (resp) {
+        }).then((resp) => {
             this.handleFileList(resp);
-        }, this));
+        });
     },
 
     handleFileList: function (files) {

@@ -23,9 +23,9 @@ var ConfigureTasksDialog = View.extend({
                 type: 'POST',
                 data,
                 error: null
-            }).done((job) => {
+            }).then((job) => {
                 router.navigate(`job/${job._id}`, {trigger: true});
-            }).error((resp) => {
+            }, (resp) => {
                 this.$('.g-validation-failed-message').text(resp.responseJSON.message);
             });
         }

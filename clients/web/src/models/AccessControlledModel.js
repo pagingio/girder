@@ -32,11 +32,11 @@ var AccessControlledModel = Model.extend({
                 public: this.get('public'),
                 publicFlags: JSON.stringify(this.get('publicFlags') || [])
             }, params || {})
-        }).done(_.bind(function () {
+        }).then(() => {
             this.trigger('g:accessListSaved');
-        }, this)).error(_.bind(function (err) {
+        }, (err) => {
             this.trigger('g:error', err);
-        }, this));
+        });
     },
 
     /**
@@ -56,7 +56,7 @@ var AccessControlledModel = Model.extend({
             return restRequest({
                 path: (this.altUrl || this.resourceName) + '/' + this.get('_id') + '/access',
                 type: 'GET'
-            }).done(_.bind(function (resp) {
+            }).then((resp) => {
                 if (resp.access) {
                     this.set(resp);
                 } else {
@@ -64,9 +64,9 @@ var AccessControlledModel = Model.extend({
                 }
                 this.trigger('g:accessFetched');
                 return resp;
-            }, this)).error(_.bind(function (err) {
+            }, (err) => {
                 this.trigger('g:error', err);
-            }, this));
+            });
         } else {
             this.trigger('g:accessFetched');
             return $.when(this.get('access'));

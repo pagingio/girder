@@ -1,5 +1,3 @@
-import _ from 'underscore';
-
 import GroupCollection from 'girder/collections/GroupCollection';
 import PluginConfigBreadcrumbWidget from 'girder/views/widgets/PluginConfigBreadcrumbWidget';
 import router from 'girder/router';
@@ -63,10 +61,10 @@ var ConfigView = View.extend({
             data: {
                 list: JSON.stringify(['autojoin'])
             }
-        }).done(_.bind(function (resp) {
+        }).then((resp) => {
             this.rules = resp['autojoin'] || [];
             this.render();
-        }, this));
+        });
     },
 
     render: function () {
@@ -114,18 +112,18 @@ var ConfigView = View.extend({
                 list: JSON.stringify(settings)
             },
             error: null
-        }).done(_.bind(function () {
+        }).then(() => {
             events.trigger('g:alert', {
                 icon: 'ok',
                 text: 'Settings saved.',
                 type: 'success',
                 timeout: 4000
             });
-        }, this)).error(_.bind(function (resp) {
+        }, (resp) => {
             this.$('#g-autojoin-error-message').text(
                 resp.responseJSON.message
             );
-        }, this));
+        });
     }
 });
 

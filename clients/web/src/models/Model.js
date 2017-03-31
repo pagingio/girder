@@ -69,12 +69,12 @@ var Model = Backbone.Model.extend({
             type: type,
             data: data,
             error: null // don't do default error behavior (validation may fail)
-        }).done(_.bind(function (resp) {
+        }).then((resp) => {
             this.set(resp);
             this.trigger('g:saved');
-        }, this)).error(_.bind(function (err) {
+        }, (err) => {
             this.trigger('g:error', err);
-        }, this));
+        });
     },
 
     /**
@@ -100,16 +100,16 @@ var Model = Backbone.Model.extend({
         if (opts.ignoreError) {
             restOpts.error = null;
         }
-        return restRequest(restOpts).done(_.bind(function (resp) {
+        return restRequest(restOpts).then((resp) => {
             this.set(resp);
             if (opts.extraPath) {
                 this.trigger('g:fetched.' + opts.extraPath);
             } else {
                 this.trigger('g:fetched');
             }
-        }, this)).error(_.bind(function (err) {
+        }, (err) => {
             this.trigger('g:error', err);
-        }, this));
+        });
     },
 
     /**
@@ -163,14 +163,14 @@ var Model = Backbone.Model.extend({
             args.error = null;
         }
 
-        return restRequest(args).done(_.bind(function () {
+        return restRequest(args).then(() => {
             if (this.collection) {
                 this.collection.remove(this);
             }
             this.trigger('g:deleted');
-        }, this)).error(_.bind(function (err) {
+        }, (err) => {
             this.trigger('g:error', err);
-        }, this));
+        });
     },
 
     /**

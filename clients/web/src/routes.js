@@ -1,5 +1,3 @@
-import _ from 'underscore';
-
 import router from 'girder/router';
 import events from 'girder/events';
 import eventStream from 'girder/utilities/EventStream';
@@ -129,11 +127,11 @@ router.route('plugins', 'plugins', function () {
     restRequest({
         path: 'system/plugins',
         type: 'GET'
-    }).done(_.bind(function (resp) {
+    }).then((resp) => {
         events.trigger('g:navigateTo', PluginsView, resp);
-    }, this)).error(_.bind(function () {
+    }, () => {
         events.trigger('g:navigateTo', UsersView);
-    }, this));
+    });
 });
 
 /**
@@ -158,7 +156,7 @@ router.route('useraccount/:id/token/:token', 'accountToken', function (id, token
         type: 'GET',
         data: {token: token},
         error: null
-    }).done(_.bind(function (resp) {
+    }).then((resp) => {
         resp.user.token = resp.authToken.token;
         eventStream.close();
         setCurrentUser(new UserModel(resp.user));
@@ -169,9 +167,9 @@ router.route('useraccount/:id/token/:token', 'accountToken', function (id, token
             tab: 'password',
             temporary: token
         });
-    }, this)).error(_.bind(function () {
+    }, () => {
         router.navigate('users', {trigger: true});
-    }, this));
+    });
 });
 
 router.route('useraccount/:id/verification/:token', 'accountVerify', function (id, token) {
@@ -180,7 +178,7 @@ router.route('useraccount/:id/verification/:token', 'accountVerify', function (i
         type: 'PUT',
         data: {token: token},
         error: null
-    }).done(_.bind(function (resp) {
+    }).then((resp) => {
         if (resp.authToken) {
             resp.user.token = resp.authToken.token;
             eventStream.close();
@@ -195,7 +193,7 @@ router.route('useraccount/:id/verification/:token', 'accountVerify', function (i
             type: 'success',
             timeout: 4000
         });
-    }, this)).error(_.bind(function () {
+    }, () => {
         events.trigger('g:navigateTo', FrontPageView);
         events.trigger('g:alert', {
             icon: 'cancel',
@@ -203,7 +201,7 @@ router.route('useraccount/:id/verification/:token', 'accountVerify', function (i
             type: 'danger',
             timeout: 4000
         });
-    }, this));
+    });
 });
 
 /**

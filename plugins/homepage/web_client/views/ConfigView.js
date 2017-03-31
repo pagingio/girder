@@ -1,5 +1,3 @@
-import _ from 'underscore';
-
 import FolderModel from 'girder/models/FolderModel';
 import MarkdownWidget from 'girder/views/widgets/MarkdownWidget';
 import PluginConfigBreadcrumbWidget from 'girder/views/widgets/PluginConfigBreadcrumbWidget';
@@ -25,7 +23,7 @@ var ConfigView = View.extend({
         restRequest({
             type: 'GET',
             path: 'homepage/markdown'
-        }).done(_.bind(function (resp) {
+        }).then((resp) => {
             this.folder = new FolderModel({_id: resp.folderId});
             this.editor = new MarkdownWidget({
                 prefix: 'homepage',
@@ -38,7 +36,7 @@ var ConfigView = View.extend({
             });
             this.render();
             this.editor.val(resp['homepage.markdown']);
-        }, this));
+        });
     },
 
     render: function () {
@@ -66,18 +64,18 @@ var ConfigView = View.extend({
                 list: JSON.stringify(settings)
             },
             error: null
-        }).done(_.bind(function () {
+        }).then(() => {
             events.trigger('g:alert', {
                 icon: 'ok',
                 text: 'Settings saved.',
                 type: 'success',
                 timeout: 4000
             });
-        }, this)).error(_.bind(function (resp) {
+        }, (resp) => {
             this.$('#g-homepage-error-message').text(
                 resp.responseJSON.message
             );
-        }, this));
+        });
     }
 });
 

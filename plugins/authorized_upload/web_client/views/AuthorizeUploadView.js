@@ -13,7 +13,7 @@ var AuthorizeUploadView = View.extend({
                     folderId: this.folder.id,
                     duration: this.$('.g-num-days').val() || 30
                 }
-            }).done(data => {
+            }).then(data => {
                 this.$('.g-url-container').removeClass('hide');
                 this.$('.g-authorized-upload-url-target').val(data.url).select();
             });

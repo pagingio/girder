@@ -26,7 +26,7 @@ var GroupModel = AccessControlledModel.extend({
             }, params),
             type: 'POST',
             error: null
-        }).done(_.bind(function (resp) {
+        }).then((resp) => {
             this.set(resp);
 
             if (!request && userId === getCurrentUser().get('_id')) {
@@ -37,9 +37,9 @@ var GroupModel = AccessControlledModel.extend({
                 }
             }
             this.trigger('g:invited');
-        }, this)).error(_.bind(function (err) {
+        }, (err) => {
             this.trigger('g:error', err);
-        }, this));
+        });
     },
 
     /**
@@ -50,16 +50,16 @@ var GroupModel = AccessControlledModel.extend({
         return restRequest({
             path: this.resourceName + '/' + this.get('_id') + '/member',
             type: 'POST'
-        }).done(_.bind(function (resp) {
+        }).then((resp) => {
             getCurrentUser().addToGroup(this.get('_id'));
             getCurrentUser().removeInvitation(this.get('_id'));
 
             this.set(resp);
 
             this.trigger('g:joined');
-        }, this)).error(_.bind(function (err) {
+        }, (err) => {
             this.trigger('g:error', err);
-        }, this));
+        });
     },
 
     /**
@@ -71,13 +71,13 @@ var GroupModel = AccessControlledModel.extend({
         return restRequest({
             path: this.resourceName + '/' + this.get('_id') + '/member',
             type: 'POST'
-        }).done(_.bind(function (resp) {
+        }).then((resp) => {
             this.set(resp);
 
             this.trigger('g:inviteRequested');
-        }, this)).error(_.bind(function (err) {
+        }, (err) => {
             this.trigger('g:error', err);
-        }, this));
+        });
     },
 
     /**
@@ -99,13 +99,13 @@ var GroupModel = AccessControlledModel.extend({
                 userId: user.get('_id')
             },
             type: 'POST'
-        }).done(_.bind(function (resp) {
+        }).then((resp) => {
             this.set(resp);
 
             this.trigger('g:promoted');
-        }, this)).error(_.bind(function (err) {
+        }, (err) => {
             this.trigger('g:error', err);
-        }, this));
+        });
     },
 
     /**
@@ -125,13 +125,13 @@ var GroupModel = AccessControlledModel.extend({
             path: this.resourceName + '/' + this.get('_id') + '/' + role +
                 '?userId=' + userId,
             type: 'DELETE'
-        }).done(_.bind(function (resp) {
+        }).then((resp) => {
             this.set(resp);
 
             this.trigger('g:demoted');
-        }, this)).error(_.bind(function (err) {
+        }, (err) => {
             this.trigger('g:error', err);
-        }, this));
+        });
     },
 
     /**
@@ -145,7 +145,7 @@ var GroupModel = AccessControlledModel.extend({
             path: this.resourceName + '/' + this.get('_id') +
                   '/member?userId=' + userId,
             type: 'DELETE'
-        }).done(_.bind(function (resp) {
+        }).then((resp) => {
             if (userId === getCurrentUser().get('_id')) {
                 getCurrentUser().removeFromGroup(this.get('_id'));
             }
@@ -153,9 +153,9 @@ var GroupModel = AccessControlledModel.extend({
             this.set(resp);
 
             this.trigger('g:removed');
-        }, this)).error(_.bind(function (err) {
+        }, (err) => {
             this.trigger('g:error', err);
-        }, this));
+        });
     },
 
     /* Check if the current user has the authority in this group to directly

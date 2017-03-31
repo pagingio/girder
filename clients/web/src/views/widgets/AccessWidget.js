@@ -76,7 +76,7 @@ var AccessWidget = View.extend({
         if (!this.noAccessFlag) {
             flagListPromise = restRequest({
                 path: 'system/access_flag'
-            }).done((resp) => {
+            }).then((resp) => {
                 this.flagList = resp;
             });
         } else {

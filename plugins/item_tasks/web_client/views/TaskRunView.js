@@ -157,9 +157,9 @@ const TaskRunView = View.extend({
                 outputs: JSON.stringify(outputs)
             },
             error: null
-        }).done((resp) => {
+        }).then((resp) => {
             router.navigate(`job/${resp._id}`, {trigger: true});
-        }).error((resp) => {
+        }, (resp) => {
             $(e.currentTarget).attr('disabled', null).removeClass('disabled');
             this.$('.g-validation-failed-message').text('Error: ' + resp.responseJSON.message);
         });

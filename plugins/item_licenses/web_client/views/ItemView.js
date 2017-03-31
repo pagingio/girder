@@ -1,5 +1,3 @@
-import _ from 'underscore';
-
 import ItemView from 'girder/views/body/ItemView';
 import { restRequest } from 'girder/rest';
 import { wrap } from 'girder/utilities/PluginUtils';
@@ -33,10 +31,10 @@ wrap(ItemView, 'editItem', function (editItem) {
     restRequest({
         type: 'GET',
         path: 'item/licenses'
-    }).done(_.bind(function (resp) {
+    }).then((resp) => {
         this.licenses = resp;
         editItem.call(this);
-    }, this));
+    });
 
     return this;
 });

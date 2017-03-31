@@ -172,7 +172,7 @@ var UserAccountView = View.extend({
             type: 'GET',
             data: {token: token},
             error: null
-        }).done(_.bind(function (resp) {
+        }).then((resp) => {
             resp.user.token = resp.authToken.token;
             eventStream.close();
             setCurrentUser(new UserModel(resp.user));
@@ -183,9 +183,9 @@ var UserAccountView = View.extend({
                 tab: 'password',
                 temporary: token
             });
-        }, this)).error(_.bind(function () {
+        }, () => {
             router.navigate('users', {trigger: true});
-        }, this));
+        });
     }
 });
 

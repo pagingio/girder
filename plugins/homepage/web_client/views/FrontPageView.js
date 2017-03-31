@@ -1,5 +1,3 @@
-import _ from 'underscore';
-
 import FrontPageView from 'girder/views/body/FrontPageView';
 import { renderMarkdown } from 'girder/misc';
 import { restRequest } from 'girder/rest';
@@ -9,9 +7,9 @@ wrap(FrontPageView, 'render', function (render) {
     restRequest({
         type: 'GET',
         path: 'homepage/markdown'
-    }).done(_.bind(function (resp) {
+    }).then((resp) => {
         this.$el.html(renderMarkdown(resp['homepage.markdown']));
-    }, this));
+    });
 
     return this;
 });

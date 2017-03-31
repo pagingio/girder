@@ -7,11 +7,11 @@ var CollectionCreationPolicyModel = AccessControlledModel.extend({
         return restRequest({
             path: this.resourceName + '/access',
             type: 'GET'
-        }).done(resp => {
+        }).then((resp) => {
             this.set('access', resp);
             this.trigger('g:accessFetched');
             return resp;
-        }).error(err => {
+        }, (err) => {
             this.trigger('g:error', err);
         });
     }

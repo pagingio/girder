@@ -55,13 +55,13 @@ var EditApiKeyWidget = View.extend({
 
         restRequest({
             path: 'token/scopes'
-        }).done(_.bind(function (resp) {
+        }).then((resp) => {
             this.scopeInfo = resp;
             if (this._shouldRender) {
                 this._shouldRender = false;
                 this.render();
             }
-        }, this));
+        });
     },
 
     render: function () {

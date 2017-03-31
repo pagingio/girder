@@ -1,5 +1,3 @@
-import _ from 'underscore';
-
 import events from 'girder/events';
 import { restRequest } from 'girder/rest';
 
@@ -17,11 +15,11 @@ events.on('g:appload.after', function () {
     restRequest({
         type: 'GET',
         path: 'google_analytics/id'
-    }).done(_.bind(function (resp) {
+    }).then((resp) => {
         if (resp.google_analytics_id) {
             ga('create', resp.google_analytics_id, 'none');
         }
-    }, this));
+    });
 });
 
 /**

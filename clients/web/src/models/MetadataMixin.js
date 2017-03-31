@@ -12,17 +12,17 @@ var MetadataMixin = {
             data: JSON.stringify(metadata),
             type: 'PUT',
             error: null
-        }).done(_.bind(function (resp) {
+        }).then((resp) => {
             this.set(opts.field || 'meta', resp.meta);
             if (_.isFunction(successCallback)) {
                 successCallback();
             }
-        }, this)).error(_.bind(function (err) {
+        }, (err) => {
             err.message = err.responseJSON.message;
             if (_.isFunction(errorCallback)) {
                 errorCallback(err);
             }
-        }, this));
+        });
     },
 
     addMetadata: function (key, value, successCallback, errorCallback, opts) {
@@ -50,12 +50,12 @@ var MetadataMixin = {
             data: JSON.stringify(key),
             type: 'DELETE',
             error: null
-        }).done(resp => {
+        }).then((resp) => {
             this.set(opts.field || 'meta', resp.meta);
             if (_.isFunction(successCallback)) {
                 successCallback();
             }
-        }).error(err => {
+        }, (err) => {
             err.message = err.responseJSON.message;
             if (_.isFunction(errorCallback)) {
                 errorCallback(err);

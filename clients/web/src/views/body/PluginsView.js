@@ -60,11 +60,11 @@ var PluginsView = View.extend({
             restRequest({
                 path: 'system/plugins',
                 type: 'GET'
-            }).done(_.bind(function (resp) {
+            }).then((resp) => {
                 this.enabled = resp.enabled;
                 this.allPlugins = resp.all;
                 this.render();
-            }, this));
+            });
         }
     },
 
@@ -160,14 +160,14 @@ var PluginsView = View.extend({
             data: {
                 plugins: JSON.stringify(this.enabled)
             }
-        }).done(_.bind(function (resp) {
+        }).then((resp) => {
             this.enabled = resp.value;
 
             _.each(this.enabled, function (plugin) {
                 this.$('.g-plugin-switch[key="' + plugin + '"]')
                     .attr('checked', 'checked').bootstrapSwitch('state', true, true);
             }, this);
-        }, this));  // TODO acknowledge?
+        });  // TODO acknowledge?
     }
 });
 

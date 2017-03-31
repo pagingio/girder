@@ -1,4 +1,3 @@
-import _ from 'underscore';
 import View from 'girder/views/View';
 import events from 'girder/events';
 import { handleClose, handleOpen } from 'girder/dialog';
@@ -45,11 +44,11 @@ var LoginView = View.extend({
                 type: 'POST',
                 data: {login: this.$('#g-login').val()},
                 error: null
-            }).done(_.bind(function (resp) {
+            }).then((resp) => {
                 this.$('.g-validation-failed-message').html(resp.message);
-            }, this)).error(_.bind(function (err) {
+            }, (err) => {
                 this.$('.g-validation-failed-message').html(err.responseJSON.message);
-            }, this));
+            });
         },
 
         'click a.g-register-link': function () {

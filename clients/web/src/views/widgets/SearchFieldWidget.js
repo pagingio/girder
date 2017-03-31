@@ -200,7 +200,7 @@ var SearchFieldWidget = View.extend({
                 mode: this.currentMode,
                 types: JSON.stringify(this.types)
             }
-        }).done(_.bind(function (results) {
+        }).then((results) => {
             this.ajaxLock = false;
 
             if (this.pending) {
@@ -254,7 +254,7 @@ var SearchFieldWidget = View.extend({
 
                 this.$('.dropdown').addClass('open');
             }
-        }, this));
+        });
     }
 });
 

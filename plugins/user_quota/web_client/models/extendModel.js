@@ -1,5 +1,3 @@
-import _ from 'underscore';
-
 import AssetstoreCollection from 'girder/collections/AssetstoreCollection';
 import { getCurrentUser } from 'girder/auth';
 import { restRequest } from 'girder/rest';
@@ -18,11 +16,11 @@ function extendModel(Model, modelType) {
             data: {
                 policy: JSON.stringify(this.get('quotaPolicy'))
             }
-        }).done(_.bind(function () {
+        }).then(() => {
             this.trigger('g:quotaPolicySaved');
-        }, this)).error(_.bind(function (err) {
+        }, (err) => {
             this.trigger('g:error', err);
-        }, this));
+        });
 
         return this;
     };
@@ -41,12 +39,12 @@ function extendModel(Model, modelType) {
             restRequest({
                 path: this.resourceName + '/' + this.get('_id') + '/quota',
                 type: 'GET'
-            }).done(_.bind(function (resp) {
+            }).then((resp) => {
                 this.set('quotaPolicy', resp.quota);
                 this.fetch();
-            }, this)).error(_.bind(function (err) {
+            }, (err) => {
                 this.trigger('g:error', err);
-            }, this));
+            });
         } else {
             this.fetch();
         }
@@ -90,10 +88,10 @@ function extendModel(Model, modelType) {
                 data: {
                     key: 'user_quota.default_' + modelType + '_quota'
                 }
-            }).done(_.bind(function (resp) {
+            }).then((resp) => {
                 this.set('defaultQuota', resp);
                 this.trigger('g:quotaPolicyFetched');
-            }, this));
+            });
         } else {
             this.trigger('g:quotaPolicyFetched');
         }

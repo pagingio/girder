@@ -32,7 +32,7 @@ function restartServer() {
     return Promise.resolve(restRequest({
         type: 'GET',
         path: 'system/version'
-    }).done(resp => {
+    }).then((resp) => {
         restartServer._lastStartDate = resp.serverStartDate;
         restartServer._callSystemRestart();
         events.trigger('g:alert', {

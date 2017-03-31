@@ -81,9 +81,9 @@ var ItemPreviewWidget = View.extend({
                 path: 'item/' + id + '/download',
                 type: 'GET',
                 error: null // don't do default error behavior (validation may fail)
-            }).done(function (resp) {
+            }).then((resp) => {
                 view.$('.json[data-id="' + id + '"]').text(JSON.stringify(resp, null, '\t'));
-            }).error(function (err) {
+            }, (err) => {
                 console.error('Could not preview item', err);
             });
         });

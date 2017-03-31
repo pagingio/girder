@@ -91,10 +91,10 @@ var ConfigView = View.extend({
             data: {
                 list: JSON.stringify(settingKeys)
             }
-        }).done(_.bind(function (resp) {
+        }).then((resp) => {
             this.settingVals = resp;
             this.render();
-        }, this));
+        });
     },
 
     render: function () {
@@ -146,17 +146,17 @@ var ConfigView = View.extend({
                 list: JSON.stringify(settings)
             },
             error: null
-        }).done(_.bind(function () {
+        }).then(() => {
             events.trigger('g:alert', {
                 icon: 'ok',
                 text: 'Settings saved.',
                 type: 'success',
                 timeout: 3000
             });
-        }, this)).error(_.bind(function (resp) {
+        }, (resp) => {
             this.$('#g-oauth-provider-' + providerId + '-error-message').text(
                 resp.responseJSON.message);
-        }, this));
+        });
     }
 });
 

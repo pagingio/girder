@@ -839,7 +839,7 @@ describe('Test FileModel static upload functions', function () {
                     path: '/file/' + file._id + '/download',
                     type: 'GET',
                     dataType: 'text'
-                }).done(function () {
+                }).then(function () {
                     text = resp.responseText;
                 });
             }
@@ -888,7 +888,7 @@ describe('Test FileModel static upload functions', function () {
                     path: '/file/' + file._id + '/download',
                     type: 'GET',
                     dataType: 'text'
-                }).done(function () {
+                }).then(function () {
                     text = resp.responseText;
                 });
             }

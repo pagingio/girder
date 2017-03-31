@@ -95,11 +95,11 @@ var UserModel = Model.extend({
             },
             type: 'PUT',
             error: null
-        }).done(_.bind(function () {
+        }).then(() => {
             this.trigger('g:passwordChanged');
-        }, this)).error(_.bind(function (err) {
+        }, (err) => {
             this.trigger('g:error', err);
-        }, this));
+        });
     },
 
     /**
@@ -113,11 +113,11 @@ var UserModel = Model.extend({
             },
             type: 'PUT',
             error: null
-        }).done(_.bind(function () {
+        }).then(() => {
             this.trigger('g:passwordChanged');
-        }, this)).error(_.bind(function (err) {
+        }, (err) => {
             this.trigger('g:error', err);
-        }, this));
+        });
     }
 });
 

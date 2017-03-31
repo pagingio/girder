@@ -112,7 +112,7 @@ var FileModel = Model.extend({
         };
 
         // Authenticate and generate the upload token for this file
-        restRequest(_restParams).done(_.bind(function (upload) {
+        restRequest(_restParams).then((upload) => {
             var behavior = upload.behavior;
             if (behavior && uploadHandlers[behavior]) {
                 this.uploadHandler = new uploadHandlers[behavior]({
@@ -155,7 +155,7 @@ var FileModel = Model.extend({
                 this.set(upload);
                 this.trigger('g:upload.complete');
             }
-        }, this)).error(_.bind(function (resp) {
+        }, (resp) => {
             var text = 'Error: ', identifier;
 
             if (resp.status === 0) {
@@ -169,7 +169,7 @@ var FileModel = Model.extend({
                 identifier: identifier,
                 response: resp
             });
-        }, this));
+        });
     },
 
     /**
@@ -189,10 +189,10 @@ var FileModel = Model.extend({
                 uploadId: this.resumeInfo.uploadId
             },
             error: null
-        }).done(_.bind(function (resp) {
+        }).then((resp) => {
             this.startByte = resp.offset;
             this._uploadChunk(this.resumeInfo.file, this.resumeInfo.uploadId);
-        }, this)).error(_.bind(function (resp) {
+        }, (resp) => {
             var msg;
 
             if (resp.status === 0) {
@@ -204,7 +204,7 @@ var FileModel = Model.extend({
                 message: msg,
                 response: resp
             });
-        }, this));
+        });
     },
 
     abortUpload: function () {

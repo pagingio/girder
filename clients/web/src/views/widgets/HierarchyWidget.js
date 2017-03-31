@@ -616,7 +616,7 @@ var HierarchyWidget = View.extend({
                     type: 'POST',
                     data: {resources: resources, progress: true},
                     headers: {'X-HTTP-Method-Override': 'DELETE'}
-                }).done(function () {
+                }).then(() => {
                     if (items && items.length && view.parentModel.has('nItems')) {
                         view.parentModel.increment('nItems', -items.length);
                     }
@@ -869,10 +869,10 @@ var HierarchyWidget = View.extend({
                 parentId: this.parentModel.get('_id'),
                 progress: true
             }
-        }).done(_.bind(function () {
+        }).then(() => {
             this._incrementCounts(nFolders, nItems);
             this.setCurrentModel(this.parentModel, {setRoute: false});
-        }, this));
+        });
         this.clearPickedResources();
     },
 
@@ -892,10 +892,10 @@ var HierarchyWidget = View.extend({
                 parentId: this.parentModel.get('_id'),
                 progress: true
             }
-        }).done(_.bind(function () {
+        }).then(() => {
             this._incrementCounts(nFolders, nItems);
             this.setCurrentModel(this.parentModel, {setRoute: false});
-        }, this));
+        });
         this.clearPickedResources();
     },
 

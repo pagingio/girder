@@ -1,4 +1,3 @@
-import _ from 'underscore';
 import moment from 'moment';
 
 import View from 'girder/views/View';
@@ -62,10 +61,10 @@ var CurationDialog = View.extend({
         this.curation = {timeline: []};
         restRequest({
             path: 'folder/' + this.folder.get('_id') + '/curation'
-        }).done(_.bind(function (resp) {
+        }).then((resp) => {
             this.curation = resp;
             this.render();
-        }, this));
+        });
     },
 
     render: function (refresh) {
@@ -109,7 +108,7 @@ var CurationDialog = View.extend({
             type: 'PUT',
             path: 'folder/' + this.folder.get('_id') + '/curation',
             data: data
-        }).done(_.bind(function (resp) {
+        }).then((resp) => {
             this.curation = resp;
             this.render(true);
             events.trigger('g:alert', {
@@ -118,11 +117,11 @@ var CurationDialog = View.extend({
                 type: 'success',
                 timeout: 4000
             });
-        }, this)).error(_.bind(function (resp) {
+        }, (resp) => {
             this.$('#g-curation-error-message').text(
                 resp.responseJSON.message
             );
-        }, this));
+        });
     }
 });
 
