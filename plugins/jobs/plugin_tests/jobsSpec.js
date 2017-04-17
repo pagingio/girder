@@ -145,6 +145,8 @@ $(function () {
                 widget.collection.add(jobs);
             });
 
+            girderTest.waitForLoad();
+
             waitsFor(function () {
                 return $('.g-jobs-list-table>tbody>tr').length === 3;
             }, 'job list to auto-reload when collection is updated');
@@ -161,6 +163,8 @@ $(function () {
                     }
                 });
             });
+
+            girderTest.waitForLoad();
 
             waitsFor(function () {
                 return $('.g-jobs-list-table>tbody>tr').length === 4;
@@ -218,6 +222,8 @@ $(function () {
               widget.collection.add(jobs);
           });
 
+          girderTest.waitForLoad();
+
           waitsFor(function () {
               return $('.g-jobs-list-table>tbody>tr').length === 3;
           }, 'job list to auto-reload when collection is updated')
@@ -239,6 +245,8 @@ $(function () {
               widget.filterStatusMenuWidget.trigger('g:triggerCheckBoxMenuChanged', evt);
           });
 
+          girderTest.waitForLoad();
+
           // Table should now only contain jobs in state 3
           waitsFor(function () {
               return $('.g-jobs-list-table>tbody>tr').length === 1;
@@ -255,6 +263,8 @@ $(function () {
             evt[girder.plugins.jobs.JobStatus.text(2)] = true
             widget.filterStatusMenuWidget.trigger('g:triggerCheckBoxMenuChanged', evt);
           });
+
+          girderTest.waitForLoad();
 
           // Table should now have all the jobs again
           waitsFor(function () {
