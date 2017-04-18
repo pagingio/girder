@@ -48,7 +48,7 @@ var TaskProgressWidget = View.extend({
             width = '100%';
             barClass.push('progress-bar-success');
 
-            this._scheduleHide(5000);
+            this._scheduleHide(10000);
         } else if (this.progress.data.state === 'error') {
             width = '100%';
             barClass.push('progress-bar-danger');
